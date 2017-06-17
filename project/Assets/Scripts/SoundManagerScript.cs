@@ -11,7 +11,6 @@ public class SoundManagerScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		sources = gameObject.GetComponents<AudioSource>();
-        playBgmRain();
 	}
 	
 	// Update is called once per frame
