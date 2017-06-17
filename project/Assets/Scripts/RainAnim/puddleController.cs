@@ -9,7 +9,7 @@ public class puddleController : MonoBehaviour {
        
        
         //表示する
-        gameObject.transform.localScale = new Vector3(1, 1, 1);
+        gameObject.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
 
         Vector3 position = Input.mousePosition;
         position.z = 10f;
