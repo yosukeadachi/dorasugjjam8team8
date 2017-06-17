@@ -5,12 +5,16 @@ using UnityEngine.UI;
 
 public class GameRule : MonoBehaviour {
 	//インスペクターから設定
+	public GameTimerScript gameTimer;
 	public Text startText;
 	public Text successText;
 	public Text failText;
+	public Text leftEnemyText;
+	public Text scoreText;
 
 
-	public string cubeTag="Cube";
+
+	public string enemyTag="Enemy";
 	//
 	private GameObject butoonToTitle;
 
@@ -26,6 +30,9 @@ public class GameRule : MonoBehaviour {
 
 	private float startTimeCount;
 
+	private int leftEnemy;
+	private int defaultLeftEnemy;
+
 	// Use this for initialization
 	void Start () {
 		startTimeCount = 1.0f;
@@ -33,8 +40,12 @@ public class GameRule : MonoBehaviour {
 		startText.enabled = true;
 		successText.enabled = false;
 		failText.enabled = false;
+		leftEnemyText.enabled = false;
+		scoreText.enabled = false;
 		butoonToTitle = GameObject.Find("ButtonToTitle");
 		butoonToTitle.SetActive(false);
+		updateLeftEnemy();
+		defaultLeftEnemy = leftEnemy;
 	}
 	
 	// Update is called once per frame
@@ -68,10 +79,15 @@ public class GameRule : MonoBehaviour {
 		nowFlow = Flow.SUCCESS;
 		successText.enabled = true;
 		butoonToTitle.SetActive(true);
+		scoreText.enabled = true;
+		scoreText.text = (defaultLeftEnemy * 100 + gameTimer.countTime * 100).ToString("F0");
 	}
 
 
 	void flowStart() {
+		updateLeftEnemy();
+		leftEnemyText.text = "残り：" + leftEnemy.ToString() + "体";
+
 		startTimeCount -= Time.deltaTime;
 		// Debug.Log(startTimeCount);
 		if(startTimeCount < 0.0f) {
@@ -81,25 +97,27 @@ public class GameRule : MonoBehaviour {
 	}
 
 	void flowPlaying() {
-		//タグで透明人間検索
+		//入力
+		if (Input.GetMouseButtonDown(0)) {
+			Vector2 tapPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			Collider2D collition2d = Physics2D.OverlapPoint(tapPoint);
+			if (collition2d) {
+				RaycastHit2D hitObject = Physics2D.Raycast(tapPoint,-Vector2.up);
+				if (hitObject.collider.gameObject.CompareTag(enemyTag)) {
+					Debug.Log("hit object is " + hitObject.collider.gameObject.name);
+					hitObject.collider.gameObject.GetComponent<InvisibleManController>().ChangeStateToHold();
+				}
+			}
+		}
+
+		//残り更新
+		updateLeftEnemy();
+		leftEnemyText.text = "残り：" + leftEnemy.ToString() + "体";
+
 		//全員死んでたら
-		//toFlowSuccess();
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = new Ray();
-            RaycastHit hit = new RaycastHit();
-            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            //マウスクリックした場所からRayを飛ばし、オブジェクトがあればtrue 
-            if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity))
-            {
-                if(hit.collider.gameObject.CompareTag(cubeTag))
-                {
-                    // hit.collider.gameObject.GetComponent<CubeControl>().OnUserAction();
-                }
-            }
-        }
+		if(leftEnemy <= 0) {
+			toFlowSuccess();
+		}
 
 	}
 
@@ -109,6 +127,20 @@ public class GameRule : MonoBehaviour {
 
 	void flowFail() {
 
+	}
+
+	void updateLeftEnemy() {
+		//シーン内の敵を検索
+		GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
+		int _cnt = enemies.Length;
+		foreach(var en in enemies) {
+			if(en.GetComponent<InvisibleManController>().isDead()) 
+			{
+				_cnt--;
+			}
+		}
+		leftEnemy = _cnt;
+		// Debug.Log(_enemy_count.ToString());
 	}
 
 }

@@ -7,7 +7,7 @@ public class GameTimerScript : MonoBehaviour {
 	public GameRule gaameRule;
 	public Text leftTimeText;
 
-	private float countTime;
+	public float countTime;
 
 	// Use this for initialization
 	void Start () {
