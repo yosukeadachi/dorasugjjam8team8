@@ -19,10 +19,11 @@ public class RainAnimation : MonoBehaviour {
         Vector3 screenToWorldPointPosition = Camera.main.ScreenToWorldPoint(position);
         // ワールド座標に変換されたマウス座標を代入
         gameObject.transform.position = screenToWorldPointPosition;
+       GetComponent<AudioSource>().Play();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
 
 
   
