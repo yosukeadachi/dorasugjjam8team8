@@ -8,6 +8,10 @@ public class GameRule : MonoBehaviour {
 	public Text startText;
 	public Text successText;
 	public Text failText;
+
+
+
+	//
 	private GameObject butoonToTitle;
 
 	//フロー設定
@@ -80,6 +84,23 @@ public class GameRule : MonoBehaviour {
 		//タグで透明人間検索
 		//全員死んでたら
 		//toFlowSuccess();
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = new Ray();
+            RaycastHit hit = new RaycastHit();
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            //マウスクリックした場所からRayを飛ばし、オブジェクトがあればtrue 
+            if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity))
+            {
+                if(hit.collider.gameObject.CompareTag(cubeTag))
+                {
+                    hit.collider.gameObject.GetComponent<CubeControl>().OnUserAction();
+                }
+            }
+        }
+
 	}
 
 	void flowSuccess() {
