@@ -10,7 +10,7 @@ public class GameRule : MonoBehaviour {
 	public Text failText;
 
 
-
+	public string cubeTag="Cube";
 	//
 	private GameObject butoonToTitle;
 
@@ -96,7 +96,7 @@ public class GameRule : MonoBehaviour {
             {
                 if(hit.collider.gameObject.CompareTag(cubeTag))
                 {
-                    hit.collider.gameObject.GetComponent<CubeControl>().OnUserAction();
+                    // hit.collider.gameObject.GetComponent<CubeControl>().OnUserAction();
                 }
             }
         }
