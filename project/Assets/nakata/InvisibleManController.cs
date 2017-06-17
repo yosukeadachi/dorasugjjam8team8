@@ -17,7 +17,7 @@ public class InvisibleManController : MonoBehaviour {
     void Update () {
     }
 
-     void ChangeTransparency (float alpha) 
+    public void ChangeTransparency (float alpha) 
     {
         float changeRed = 1.0f;
         float changeGreen = 1.0f;

@@ -44,6 +44,7 @@ public class GameRule : MonoBehaviour {
 		scoreText.enabled = false;
 		butoonToTitle = GameObject.Find("ButtonToTitle");
 		butoonToTitle.SetActive(false);
+		randomEnemy();
 		updateLeftEnemy();
 		defaultLeftEnemy = leftEnemy;
 	}
@@ -73,6 +74,7 @@ public class GameRule : MonoBehaviour {
 		nowFlow = Flow.FAIL;
 		failText.enabled = true;
 		butoonToTitle.SetActive(true);
+		visibleAllEnemy();
 	}
 
 	public void toFlowSuccess() {
@@ -141,6 +143,34 @@ public class GameRule : MonoBehaviour {
 		}
 		leftEnemy = _cnt;
 		// Debug.Log(_enemy_count.ToString());
+	}
+
+	//敵をランム配置
+	void randomEnemy() {
+		//シーン内の敵を検索
+		GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
+		int _cnt = enemies.Length;
+		float _ox = -8.0f;
+		float _oy = -4.0f;
+		float _range_x = 16.0f;
+		float _range_y = 9.0f;
+		int i = 0;
+		foreach(var en in enemies) {
+			Vector3 _pos = en.transform.position;
+			_pos.x = _ox + ((_range_x / _cnt+1) * i) + Random.Range(-1.0f,1.0f);
+			_pos.y = _oy + Random.Range(0.0f,_range_y);
+			en.transform.position = _pos;
+			i++;
+		}
+	}
+
+	//敵を全表示
+	void visibleAllEnemy() {
+		//シーン内の敵を検索
+		GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
+		foreach(var en in enemies) {
+			en.GetComponent<InvisibleManController>().ChangeTransparency(1.0f);
+		}
 	}
 
 }
