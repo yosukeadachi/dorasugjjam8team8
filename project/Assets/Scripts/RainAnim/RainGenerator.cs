@@ -17,7 +17,7 @@ public class RainGenerator : MonoBehaviour {
            
                 GameObject go = Instantiate(RainPrefab) as GameObject;
 
-     
+            GetComponent<AudioSource>().Play();
 
           
 
