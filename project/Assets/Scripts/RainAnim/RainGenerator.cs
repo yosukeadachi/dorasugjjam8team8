@@ -5,8 +5,10 @@ using UnityEngine;
 public class RainGenerator : MonoBehaviour {
 
     public GameObject RainPrefab;
-	// Use this for initialization
-	void Start () {
+
+    public GameObject puddlePrefab;
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -17,9 +19,11 @@ public class RainGenerator : MonoBehaviour {
            
                 GameObject go = Instantiate(RainPrefab) as GameObject;
 
-            GetComponent<AudioSource>().Play();
 
-          
+            GameObject go2 = Instantiate(puddlePrefab) as GameObject;
+            //   GetComponent<AudioSource>().Play();
+
+
 
         }
      
