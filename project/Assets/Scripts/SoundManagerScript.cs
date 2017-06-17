@@ -11,8 +11,7 @@ public class SoundManagerScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		sources = gameObject.GetComponents<AudioSource>();
-        sources[0].clip = audioClipBgmRain;
-        sources[0].Play ();
+        playBgmRain();
 	}
 	
 	// Update is called once per frame
@@ -20,8 +19,19 @@ public class SoundManagerScript : MonoBehaviour {
 		
 	}
 
-	void playSeRain() {
+	public void playSeRain() {
 		sources[1].clip = audioClipSeRain;
 		sources[1].PlayOneShot(audioClipSeRain);
 	}
+	
+	public void playSeEnemy() {
+		sources[1].clip = audioClipSeEnemy;
+		sources[1].PlayOneShot(audioClipSeEnemy);
+	}
+
+	public void playBgmRain() {
+		sources[0].clip = audioClipBgmRain;
+		sources[0].PlayOneShot(audioClipBgmRain);
+	}
+
 }
