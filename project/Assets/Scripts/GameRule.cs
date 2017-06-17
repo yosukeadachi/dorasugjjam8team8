@@ -152,7 +152,7 @@ public class GameRule : MonoBehaviour {
 		int _cnt = enemies.Length;
 		float _ox = -8.0f;
 		float _oy = -4.0f;
-		float _range_x = 16.0f;
+		float _range_x = 14.0f;
 		float _range_y = 9.0f;
 		int i = 0;
 		foreach(var en in enemies) {
