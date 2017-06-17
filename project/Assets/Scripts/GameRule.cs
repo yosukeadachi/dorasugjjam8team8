@@ -40,7 +40,7 @@ public class GameRule : MonoBehaviour {
 		startText.enabled = true;
 		successText.enabled = false;
 		failText.enabled = false;
-		leftEnemyText.enabled = false;
+		leftEnemyText.enabled = true;
 		scoreText.enabled = false;
 		butoonToTitle = GameObject.Find("ButtonToTitle");
 		butoonToTitle.SetActive(false);
